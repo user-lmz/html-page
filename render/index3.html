@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="http://unpkg.com/vue/dist/vue.min.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<ele></ele>
+		</div>
+		<script>
+			var Child = {
+				render: function(createElement) {
+					return createElement('p', 'text');
+				}
+			};
+			Vue.component('ele', {
+				render: function (createElement) {
+					var ChildNode = createElement(Child);
+					return createElement('div', [
+						ChildNode,
+						ChildNode
+					]);
+				}
+			});
+			var app = new Vue({
+				el: '#app'
+			})
+		</script>
+	</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="http://unpkg.com/vue/dist/vue.min.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<ele :show="show"></ele>
+			<button @click="show = !show">切换show</button>
+		</div>
+		<script>
+			Vue.component('ele',{
+				render: function (createElement) {
+					if(this.show) {
+						return createElement('p', 'show的值为true');
+					} else {
+						return createElement('p', 'show的值为false');
+					}
+				},
+				props: {
+					show: {
+						type: Boolean,
+						default: true
+					}
+				}
+			});
+			var app = new Vue({
+				el: '#app',
+				data: {
+					show: false
+				}
+			})
+		</script>
+	</body>
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>购物车-组件</title>		
+		<style>
+			body{
+				margin: 0;
+				padding: 0;
+			}
+			.e1{
+				border: 1px solid red;
+				background-color: #DB7093;
+				
+			}
+			.e1 span{
+				font-weight: bolder;
+			}
+			#box{
+				border: red solid 1px;
+				height: 600px;
+				width: 450px;
+				margin: 50px auto;
+				text-align: center;
+				padding-top: 20px;
+			}
+			#box input{
+				width: 40px;
+				text-align: center;
+			}
+			#money{
+				border: none;
+				text-align: left;
+				margin-left: 2px;
+			}
+			ul{
+				list-style: none;
+			}
+			ul li{
+				display: block;
+				float: left;
+				/* vertical-align: middle; */
+			}
+		</style>
+	</head>
+	<body>
+		<div id="box">
+			<div class="e1" v-if="error"><span>Error:</span>please enter a valid number from 0 to 9</div>
+			<ul v-for="(game,index) in games">
+				<li style="width: 95px;">{{ game.name }}&nbsp;&nbsp;&nbsp;</li>
+				<li><button v-on:click="plus(index)">+</button></li>
+				<li><input type="text" v-model:value="game.text" @input="judge(game.text,index)"></li>
+				<li><button v-on:click="subtract(index)">-</button></li>
+				<li style="width: 80px;">&nbsp;&nbsp;&nbsp;￥{{ game.price*game.text }}</li>
+				<li>&nbsp;&nbsp;&nbsp;<button @click="add(index)">添加</button></li><br><br>
+			</ul>
+			<h3 v-if="selects.length != 0" style="text-align: center;">购物车</h3>
+			<div 
+				is="result"
+				v-for="(select, index) in selects"
+				v-bind:key="select.id"
+				v-bind:select="select"				
+				v-on:remove="selects.splice(index,1)"				
+			></div>
+			<div v-if="totalPrice != '0'" style="text-align: center;" >总价格：￥{{ totalPrice }}</div>
+		</div>
+		
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<script>
+			Vue.component('result', {
+				props: ['select'],
+				data: function(){
+					return {
+						style: {
+							textAlign: 'center'
+						},
+						style1: {
+							display: 'inline-block',
+							fontWeight: 'bolder',
+							color: '#DC143C',
+							marginRight: '20px',
+							width: '95px'
+						},
+						style2: {
+							width: '40px'
+						},
+						style3: {
+							display: 'inline-block',
+							width: '80px',
+							color: 'blue'
+						}
+					} 
+				},
+				template: 
+				`<div class="box1"><span :style="style1">{{ select.name }}</span>数量：<input v-model:value="select.count" :style="style2">
+				&nbsp;&nbsp;&nbsp;价格:<span :style="style3">￥{{ select.count*select.price }}</span>
+				&nbsp;&nbsp;<button @click="$emit('remove')">Remove</button></div>`
+			})
+			
+			var v1 = new Vue({
+				el: '#box',
+				data: {
+					error: false,
+					nextSelectId: 0,
+					flag: '',
+					timer: '',
+					games: [
+						{name:'吃鸡', text:1, key:1, price:88, money:88},
+						{name:'猎杀：对决', text:1, key:2, price:110, money:110},
+						{name:'最终幻想6', text:1, key:3, price:65, money:65}
+					],
+					selects: [],
+				},
+				computed: {
+					totalPrice: function(){
+						var total = 0
+						for (var i=0; i < this.selects.length; i++){
+							var item = this.selects[i]
+							total += item.price * item.count
+						}
+						return total.toString().replace(/\B(?=(\d{3})+$)/g,',')
+					}
+				},
+				methods: {
+					setDesplayTime: function(second, index){
+						setTimeout(()=>{
+							this.error = false
+							this.games[index].text = ''
+						},1000*second)
+					},
+					judge: function(getInput,index){
+						this.flag=index
+						console.log(getInput)
+						if(getInput.length > 1 && getInput.charAt(0) == '0' || getInput != '' && (getInput.charAt(0) > '9' || getInput.charAt(0) < '0')){
+							this.error=true
+							this.setDesplayTime(2.5, index)
+							return;
+						}else {
+							for(var i = 1; i < getInput.length; i++){
+								if(getInput.charAt(i) > '9' || getInput.charAt(i) < '0'){
+									this.error=true
+									this.setDesplayTime(2.5, index)
+									break;
+								}			
+							}
+						}												
+					},
+					plus: function(index){
+						this.games[index].text+=1
+						this.games[index].money=this.games[index].text*this.games[index].price
+					},
+					subtract: function(index){
+						if(this.games[index].text > 1){
+							this.games[index].text-=1
+							this.games[index].money=this.games[index].text*this.games[index].price
+						}
+					},
+					add: function(index){
+						this.selects.push({
+							id: this.nextSelectId++, 
+							name: this.games[index].name,
+							count: this.games[index].text,
+							money: this.games[index].money,
+							price: this.games[index].price
+						})
+					},
+				},
+				
+			})
+		</script>		
+	</body>
+</html>

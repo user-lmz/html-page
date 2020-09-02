@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>页面2</title>
+	</head>
+	<style>
+		.box{
+			display: inline-block;
+			width: 400px;
+		}
+		.box button{
+			height: 30px;
+		}
+		img{
+			width: 30px;
+			float: right;
+		}
+	</style>
+	<body>
+		<div id="app">
+			<div class="box" v-if="collection != null">
+				<button v-for="page in collection" @click="gotolink(page.add)">{{ page.name }}</button>
+			</div>
+			<img @click="collect('页面2', 'index2.html')" src="1.png" />
+		</div>
+		<h1>这是页面2222</h1>
+		<script src="http://unpkg.com/vue/dist/vue.min.js"></script>
+		<script src="global.js"></script>
+	</body>
+</html>

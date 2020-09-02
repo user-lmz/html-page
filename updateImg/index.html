@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="http://unpkg.com/vue/dist/vue.min.js"></script>
+	</head>
+	<style>
+		#app{
+			text-align: center;
+		}
+		#app img{
+			display: inline-block;
+			border: 1px solid red;
+			width: 100px;
+		}
+		.box{
+			text-align: center;
+		}
+		.box1{
+			display: inline-block;
+			width: 110px;
+		}
+	</style>
+	<body>
+		<div id="app">
+			<img v-bind:src="'./img/'+image"/>
+			<button @click="v1.view=true">更换头像</button>
+			<div class="box" v-if="view">
+				<div class="box1" v-for="img in images">
+					<button @click="image=img"><img v-bind:src="'./img/'+img"/></button>
+				</div><br>
+				<button @click="v1.view=false">确认</button>
+			</div>
+		</div>
+		<script>
+			var v1 = new Vue({
+				el: '#app',
+				data: {
+					view: false,
+					image: '1.jpg',
+					images: ['1.jpg','2.jpg','3.jpg']
+				}
+			})
+		</script>
+	</body>
+</html>

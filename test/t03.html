@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			<template v-if="type==='name'">
+				<label>姓名</label>
+				<input placeholder="please input name" key="input-name">
+			</template>
+			<template v-else>
+				<label>邮箱</label>
+				<input placeholder="please input name" key="email-name">	
+			</template>
+			<button @click="onFocus">切换</button>
+		</div>
+		
+		<script src="http://unpkg.com/vue/dist/vue.min.js"></script>
+		<script>
+			new Vue({
+				el: '#app',
+				data: {
+					type: 'name'
+				},
+				methods: {
+					onFocus: function(){
+						this.type=this.type==='name' ? 'email' : 'name'
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="http://unpkg.com/vue/dist/vue.min.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<p>总数：{{ total }}</p>
+			<my-component
+				v-model="total"></my-component>
+			<button @click="handleIncrease">+</button>
+			<button @click="handleReduce">-</button>
+		</div>
+		<script>
+			Vue.component('my-component',{
+				props: ['value'],
+				template: `<input :value="value" @input="updateValue">`,
+				methods: {
+					updateValue: function(event){
+						this.$emit('input',event.target.value)
+					}
+				}
+			})
+			var v1=new Vue({
+				el: '#app',
+				data: {
+					total: 0
+				},
+				methods: {
+					handleIncrease: function(){
+						this.total++
+					},
+					handleReduce: function(){
+						this.total--
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

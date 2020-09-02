@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="http://unpkg.com/vue/dist/vue.min.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<p>总数：{{ total }}</p>
+			<my-component
+				@input="handleGetTotal"></my-component>
+		</div>
+		<script>
+			Vue.component('my-component',{
+				template: `<div>
+					<button @click="handleIncrease">+</button>
+					<button @click="handleReduce">-</button>
+				</div>`,
+				data: function(){
+					return {
+						counter: 0
+					}
+				},
+				methods: {
+					handleIncrease: function(){
+						this.counter++
+						this.$emit('input',this.counter)
+					},
+					handleReduce: function(){
+						this.counter--
+						this.$emit('input',this.counter)
+					}
+				}
+			})
+			var v1=new Vue({
+				el: '#app',
+				data: {
+					total: 0
+				},
+				methods: {
+					handleGetTotal: function(total) {
+						this.total=total
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

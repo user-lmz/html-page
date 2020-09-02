@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="http://unpkg.com/vue/dist/vue.min.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<my-component :init-count='88'></my-component>
+		</div>
+		<script>
+			Vue.component('my-component',{
+				props: ['initCount'],
+				template:`<p>{{ count }}</p>`,
+				data: function(){
+					return {
+						count: this.initCount
+					}
+				}
+			})
+			new Vue({
+				el: '#app',
+			})
+		</script>
+	</body>
+</html>

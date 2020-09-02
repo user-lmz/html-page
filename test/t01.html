@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<script src="http://unpkg.com/vue/dist/vue.min.js"></script>
+		<script>
+			var myData = {
+				a : 2
+			}
+			var v1 = new Vue({
+				el: 'd1',
+				data: myData
+			})
+			console.log(v1.a)
+			v1.a=3
+			console.log(myData.a)
+		</script>
+	</body>
+</html>

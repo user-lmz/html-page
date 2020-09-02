@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>计算属性</title>
+	</head>
+	<style>
+		#app{
+			width: 200px;
+			height: 200px;
+			border: 1px solid black;
+		}
+	</style>
+	<script>
+		function changeColor(color, id){
+			document.getElementById(id).style.background=color
+			document.getElementById('app').style.background=color
+		}
+	</script>
+	<body>
+		<button id="1" onclick="changeColor('green',id)">绿色</button>
+		<button id="2" onclick="changeColor('red',id)">红色</button>
+		<button id="3" onclick="changeColor('blue',id)">蓝色</button>
+		<div id="app">
+			
+		</div>
+		
+	</body>
+</html>

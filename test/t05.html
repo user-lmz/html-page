@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="http://unpkg.com/vue/dist/vue.min.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<h3>-----methods属性-----</h3>
+			<p>你好呀{{ message }}</p>
+			<p>{{ reversemessage() }}</p>
+			<p>{{ time() }}</p>
+			<p>{{ time1() }}</p>
+			<h3>-----computed属性-----</h3>
+			<p>你好呀{{ message1 }}</p>
+			<p>{{ reversemessage1 }}</p>
+			<p>{{ time2 }}</p>
+			<p>{{ time3 }}</p>
+		</div>	
+		<script>	
+			var vm = new Vue({
+				el: '#app',
+				data: {
+					message: 'jennifer',
+					message1: 'jennifer',
+					time2: "222",
+					time3: "44"
+				},
+				methods: {
+					reversemessage: function(){
+						return this.message.split('').reverse().join('')
+					},
+					time: function(e){
+						console.log(e)
+						return "111"
+					},
+					time1: function(){
+						return "333"
+					}
+				},
+				computed: {
+					reversemessage1: function(){
+						return this.message1.split('').reverse().join('')
+					},
+					time2: function(e){
+						console.log(e)
+						return "111"
+					},
+					time3: function(){
+						return "333"
+					}
+				}
+			})
+		</script>
+	</body>
+</html>
